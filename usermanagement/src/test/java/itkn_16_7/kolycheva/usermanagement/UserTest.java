@@ -5,10 +5,12 @@ import static org.junit.Assert.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
 
-public class UserTest {
+//import org.junit.Before;
+//import org.junit.Test;
+
+public class UserTest extends TestCase {
 
 	
 		private static final Long ID = 1L;
@@ -58,7 +60,7 @@ public class UserTest {
 		private User user;
 		private Calendar calendar;
 		
-		@Before
+//		@Before
 		public void setUp() throws Exception {
 			user = new User();
 			setTestDate();
@@ -102,7 +104,7 @@ public class UserTest {
 	    * <p>
 	    * Expected result: FULL_NAME_ETALONE
 	    */
-		@Test
+//		@Test
 		public void testGetFullName() {
 			user.setFirstName(FIRST_NAME);
 			user.setLastName(LAST_NAME);
@@ -114,7 +116,7 @@ public class UserTest {
 	    * <p>
 	    * expected result: ETALONE_AGE_1
 	    */
-		@Test
+//		@Test
 		public void testGetAge_birthdayPassed() {
 			calendar = Calendar.getInstance();
 			calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_1, DAY_OF_BIRTH_1);
@@ -128,7 +130,7 @@ public class UserTest {
 		* <p>
 		* expected result: ETALONE_AGE_2
 		*/
-		@Test
+//		@Test
 		public void testGetAge_birthdayWillBe() {
 			calendar = Calendar.getInstance();
 			calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_2, DAY_OF_BIRTH_2);
@@ -142,7 +144,7 @@ public class UserTest {
 		* <p>
 		* expected result: ETALONE_AGE_3
 		*/
-		@Test
+//		@Test
 		public void testGetAge_birthdayPassedThisMonth() {
 			calendar = Calendar.getInstance();
 			calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_3, DAY_OF_BIRTH_3);
@@ -156,7 +158,7 @@ public class UserTest {
 		* <p>
 		* expected result: ETALONE_AGE_4
 		*/
-		@Test
+//		@Test
 		public void testGetAge_birthdayToday() {
 			calendar = Calendar.getInstance();
 			calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_4, DAY_OF_BIRTH_4);
@@ -170,7 +172,7 @@ public class UserTest {
 		* <p>
 		* expected result: ETALONE_AGE_5
 		*/
-		@Test
+//		@Test
 		public void testGetAge_birthdayWillBePassedThisMonth() {
 			calendar = Calendar.getInstance();
 			calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_5, DAY_OF_BIRTH_5);
@@ -184,7 +186,7 @@ public class UserTest {
 		* <p>
 		* expected result: ETALONE_AGE_6
 		*/
-		@Test
+//		@Test
 		public void testGetAge_birthday31December() {
 			calendar = Calendar.getInstance();
 			calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_6, DAY_OF_BIRTH_6);
@@ -198,7 +200,7 @@ public class UserTest {
 		* <p>
 		* expected result: ETALONE_AGE_7
 		*/
-		@Test
+//		@Test
 		public void testGetAge_birthday1January() {
 			calendar = Calendar.getInstance();
 			calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_7, DAY_OF_BIRTH_7);
