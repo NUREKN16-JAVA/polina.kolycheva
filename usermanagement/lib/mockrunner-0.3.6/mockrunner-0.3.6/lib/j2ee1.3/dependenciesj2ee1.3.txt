@@ -1,0 +1,112 @@
+This file lists all the jar files provided by Mockrunner and
+the required third party libraris for each jar. Please note
+that this file is created automatically by analyzing the
+compile time dependencies of all classes in the jar. This
+is done recursively, i.e. the dependencies of the third-party
+jars are recognized as well. If you add all dependend jars
+for a specified mockrunner-xyz.jar to your classpath, you
+are on the safe side. However, not all listed dependencies
+are necessary at runtime in all cases. Especially with the 
+"all-in-one"-files mockrunner.jar, mockrunner-jdk1.3.jar,
+mockrunner-j2ee1.3.jar and mockrunner-jdk1.3-j2ee1.3.jar
+you don't have to add everything to the classpath. E.g. if you're 
+only using EJB and JMS, you don't have to add the web related jar 
+files, because the necessary factories and modules are created when 
+they are used resp. lazy initialized. Please note that the Struts
+test framework only needs CGLib, if custom action mappings are used.
+If you only need one technology it's recommended to use the corresponding
+jar file instead of the "all-in-one" mockrunner.jar. E.g. if you only want
+to use the JDBC test framework, you can use mockrunner-jdbc.jar.
+Please note that each mockrunner-xyz.jar file contains a jarversion.txt 
+which lists the Mockrunner version and the supported JDK and J2EE versions.
+
+Created: 09/30/2005 05:27 PM
+
+Jar file name: mockrunner-servlet-j2ee1.3.jar
+
+Depends on: 
+
+commons-logging.jar
+jakarta-oro-2.0.8.jar
+jdom.jar
+junit.jar
+nekohtml.jar
+servlet.jar
+xercesImpl.jar
+xml-apis.jar
+
+
+Jar file name: mockrunner-tag-j2ee1.3.jar
+
+Depends on: 
+
+commons-beanutils.jar
+commons-logging.jar
+jakarta-oro-2.0.8.jar
+jdom.jar
+junit.jar
+nekohtml.jar
+servlet.jar
+xercesImpl.jar
+xml-apis.jar
+
+
+Jar file name: mockrunner-jdk1.3-j2ee1.3.jar
+
+Depends on: 
+
+cglib-nodep-2.1_2.jar
+commons-beanutils.jar
+commons-digester.jar
+commons-logging.jar
+commons-validator.jar
+jakarta-oro-2.0.8.jar
+jboss-j2ee.jar
+jdom.jar
+junit.jar
+mockejb.jar
+nekohtml.jar
+servlet.jar
+struts.jar
+xercesImpl.jar
+xml-apis.jar
+
+
+Jar file name: mockrunner-struts-j2ee1.3.jar
+
+Depends on: 
+
+cglib-nodep-2.1_2.jar
+commons-beanutils.jar
+commons-digester.jar
+commons-logging.jar
+commons-validator.jar
+jakarta-oro-2.0.8.jar
+jdom.jar
+junit.jar
+nekohtml.jar
+servlet.jar
+struts.jar
+xercesImpl.jar
+xml-apis.jar
+
+
+Jar file name: mockrunner-j2ee1.3.jar
+
+Depends on: 
+
+cglib-nodep-2.1_2.jar
+commons-beanutils.jar
+commons-digester.jar
+commons-logging.jar
+commons-validator.jar
+jakarta-oro-2.0.8.jar
+jboss-j2ee.jar
+jdom.jar
+junit.jar
+mockejb.jar
+nekohtml.jar
+servlet.jar
+struts.jar
+xercesImpl.jar
+xml-apis.jar

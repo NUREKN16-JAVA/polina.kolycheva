@@ -1,0 +1,354 @@
+
+mockrunner-0.3.6:
+
+- Introduced new JCA test module (developed and donated to Mockrunner
+  by Gábor Lipták). The framework can be used simulate backend systems that are 
+  accessed through the use of the JCA Common Client Interface API. Check out
+  the ConnectorTestModule and the corresponding examples in the 
+  com.mockrunner.example.connector package.
+- changed ActionTestModule.getActionMessages() and ActionTestModule.getActionErrors
+  to return the union of request and session messages. Check out migratingfrom0.3.5.txt
+- added prepareActionMapping to ActionMockObjectFactory to allow the use of custom
+  ActionMapping subclasses. Modified LogoutActionTest to demonstrate the use of custom
+  mappings. This feature relies on CGLib.
+- added addExceptionHandler() to ActionTestModule. Can be used to simulate and test
+  Struts ExceptionHandler. Please use the class DefaultExceptionHandlerConfig
+- added resetAll() methods to web mock objects
+- fixed bug 1253272 regarding setAttribute for null values
+- fixed bug 1255832 reported by Lars Beuster (session invalidate)
+- as for feature request 1256030, all mock object factories create the mock objects
+  using public factory methods. This makes the mock object factories more extensible.
+- JDBC test framework now supports generated keys using getGeneratedKeys()
+- improved version of MockDatabaseMetaData, now supports pattern matching using
+  "_" and "%" and case insensitive matching (contribution by Richard Emberson)
+- applied patch 1230604 by David Stern, this fixes some issues with finding
+  files in result set factories and introduces a template feature for FileResultSetFactory
+- fixed bug regarding statement methods getMoreResults, getResultSet and getUpdateCount,
+  getMoreResults now returns false since Mockrunner does not support multiple
+  result sets and resets the current result set and update count, see patch 1223316
+- fixed bug in MockResulSet, getBigDecimal(..., int scale) always returned null
+- fixed bug 1296735 (verifyCallableStatementParameter and verifyPreparedStatementParameter
+  null values)
+- added suitable equals method to MockBlob, MockClob, MockStruct and MockArray
+- CallableStatement out parameters are now returned only if the statement
+  has been executed
+- it's now possible to specify that only registered out parameters are returned
+  for a CallableStatement
+- added ArrayResultSetFactory implemented by Erick G. Reid
+- it's now possible to specify an SQLException object when using prepareThrowsSQLException
+  as suggested by Eugene Tishkin
+- added loadMessage() method to MockDestination to preload test messages
+- added proper toString() method to all JMS MockMessage implementations
+- improved version of NestedApplicationException, now displays root stacktrace
+- ít's now possible to set a null transaction policy in EJBTestModule
+- refactored EJBMockObjectFactory, MockContextFactory.setAsInitial is only called
+  if necessary, preventing mock settings of being saved and restored later
+- added getHeaderNames() method to MockHttpServletResponse
+- HTTP headers are now handled case-insensitive in MockHttpServletRequest and MockHttpServletResponse
+- fixed bug 1195461 (restore JDBC drivers and JNDI settings in basic adapters tearDown)
+- refactored JMS session handling so that closed session are removed from destinations
+- Mockrunner now officially supports Java 1.5 (aka 5.0). Of course 1.4 and 1.3 are still supported.
+- updated to CGLib 2.0.2, replaced cglib-full-2.0-RC2.jar with cglib-full-2.0.2.jar
+- updated J2EE 1.4 jboss-j2ee.jar from 4.0.1sp1 to 4.0.2
+- updated struts.jar and all corresponding commons-jars to Struts 1.2.7
+- Struts 1.2.7 does no longer depend on commons-collections.jar and Mockrunner does neither,
+  so this dependency was removed. For older Struts versions, you'll need it of course
+- replaced ActiveMQ classes with 3.1 version
+- updated nekohtml.jar from 0.9.4 to 0.9.5
+- updated cglib from 2.0.2 to 2.1_2 (cglib-nodep-2.1_2.jar)
+- updated xercesImpl.jar and xml-apis.jar from Xerces 2.6.2 to 2.7.1
+- added jboss-jaas.jar from JBoss 3.2.3 for J2EE 1.3
+
+mockrunner-0.3.5:
+
+- lazy initializing mock object factories in BaseTestCase as
+  suggested by Gábor Lipták. This makes the standard adapters
+  useable without all the third party dependencies.
+- added XMLResultSetFactory to createMockResultSets based on
+  XML files (contribution by Jeremy Whitlock)
+- introduced basic adapter versions (e.g. BasicJMSTestCaseAdapter)
+  which do not extend BaseTestCase
+- adapters (both standard and basic) are generated now with the
+  help of some tools in com.mockrunner.gen packages
+- moved struts mock object creation to ActionMockObjectFactory (a subclass
+  of WebMockObjectFactory) to make WebMockObjectFactory independent from 
+  struts (check out migratingfrom0.3.1.txt for details)
+- Mockrunner now provides separate jars for all supported technologies
+  in addition to the all-in-one jars
+- Full J2EE 1.4 support, added J2EE 1.3-jars for backwards compatibility
+- reorganized package structure of util classes
+- Enhanced tag test framework. Now supports simulated scriptlets and
+  expressions as well as all J2EE 1.4 features (simple tags, dynamic
+  attributes and fragments). Added FilterImagesTagTest to demonstrate
+  some of the new features.
+- it's now possible to set the key under which messages and errors are
+  stored in ActionTestModule
+- all test modules now use the wrapped request and response whenever possible
+- added refresh method to WebMockObjectFactory to recreate mock objects
+  dependencies after adding request and response wrappers
+- added getMockConnection method to MockDataSource (patch by Gábor Lipták)
+- JMS MockConnectionFactory now implements MockQueueConnectionFactory and
+  MockTopicConnectionFactory to provide one factory with one JNDI name
+  for both domains
+- introduced NestedApplicationException, which is thrown instead of
+  RuntimeException and nests the original exception
+- renamed ArrayUtil.contains to ArrayUtil.indexOf, contains is misleading
+- added getBinaryContent to MockServletOutputStream
+- MockServletOutputStream.getContent now respects the character encoding of 
+  the response
+- removed MockHttpSessionBindingEvent, using HttpSessionBindingEvent directly
+- refactored the JMS test framework, introduced GenericTransmissionManager
+  for creating producers that are not associated with a destination
+  (check out bug report 1077690)
+- fixed bug 1077690 (JMS spec allows MessageProducers with null destination)
+  reported by Peter Ryan
+- refactored JMS messages to be closer to spec, message read and write mode
+  is now handled properly and it's no longer possible to set properties
+  with null name
+- TransmissionManagerWrapper now allows transparent access to senders and
+  receivers
+- added createBean methods with Class[] parameter to EJBTestModule in order
+  to specify parameter types and allow null parameters
+- refactored MockPageContext, it does no longer depend on 
+  org.apache.struts.mock.MockPageContext
+- changed session creation in MockHttpServletRequest. If getSession(false)
+  is called without a previous created session, this method returns null
+- moved verifyOutput methods to HTMLOutputModule avoiding redundancy in
+  subclasses
+- fixed bug with parameter sets in batch updates, always the latest parameter
+  set has been stored
+- it's now possible to set the JNDI name for the UserTransaction using
+  the com.mockrunner.ejb.Configuration class
+- fixed bug in MockHttpServletResponse.getWriter()
+- fixed bug in MockResultSet.setFetchDirection
+- fixed minor classloading bug in EJBTestModule
+- removed commons-lang-2.0.jar, no longer necessary
+- replaced ActiveMQ classes with 3.0 version fixing some issues
+  with selector parsing
+- added J2EE 1.4 servlet-api.jar, jsp-api.jar and jboss-j2ee.jar
+
+mockrunner-0.3.1:
+
+- adapted EJBTestModule to new MockEJB 0.6 API (check out
+  migratingfrom0.3.txt for details)
+- added BillManagerSessionTest and UserLoginSessionTest in order to 
+  demonstrate the testing of entity beans
+- adapted example tests to the new MockEJB 0.6 API
+- fixed bug 1063152 (MockHttpServletResponse location header wrong case)
+- replaced all System.out and exc.printStackTrace with commons-logging
+  statements in all framework classes
+- improved version of UserTransaction
+- UserTransaction is now automatically bound to java:comp/UserTransaction
+- fixed getPreparedStatementResultSetHandler() problem in BookstoreTest
+- improved version of MockActionMapping as suggested by Lim Eu Gene, it
+  allows to setup forwards with specified path.
+- added setResourceAsStream(String path, InputStream inputStream) method 
+  to MockServletContext
+- ActionTestModule now extends HTMLOutputModule
+- added WebTestModule and WebTestCase as superclasses of HTMLOutputModule
+  and HTMLOutputTestCase. The classes provide convenience methods
+  for request and session handling
+- added setJspWriter(JspWriter jspWriter) method to MockPageContext
+- column names of MockResultSet are now handled case insensitive
+- updated mockejb.jar from 0.5 to 0.6 beta2
+- replaced jakarta-oro.jar from Struts release with jakarta-oro-2.0.8.jar
+  from MockEJB 0.6 beta2 release
+- updated Struts jars from 1.2.1 to 1.2.4
+- updated jdom.jar from Beta 10 to 1.0
+- updated servlet.jar from Tomcat 4.1.30 to 4.1.31
+- updated nekohtml.jar from 0.9.3 to 0.9.4
+
+mockrunner-0.3:
+
+- fixed bug 983552 (valueUnbound bug in MockHttpSession)
+- fixed bug 1006853 (addRequestParameter with array parameter)
+- applied patch 988200 (RequestDispatcher by Brian Sanders)
+- adapted ActionTestModule to Struts 1.2 (Struts 1.1 is still supported,
+  check out migratingfrom0.2.9.txt for details), added methods to get
+  action errors and messages from request and session
+- changed example tests to confirm with Struts 1.2 requirements
+- it's now possible to use regular expressions with the JDBC test framework
+  for preparing and verifying SQL statements. You have to enable regular expressions 
+  with setUseRegularExpressions(true). Check out the modified JDBC BookstoreTest.
+- improved version of MockDatabaseMetaData
+- replaced verifySavepointRollbacked methods with verifySavepointRolledBack,
+  old ones are deprecated now
+- added verifyNumberCommits and verifyNumberRollbacks methods for JMS sessions to 
+  JMSTestModule
+- MapMessageResources.clear now clears cached values also
+- added methods to ServletTestModule to set a servlet directly and to
+  optionally initialize servlets and filters
+- added setFilterName to MockFilterConfig
+- added verifyOutputRegularExpression to ServletTestModule and TagTestModule
+- added setDoReleaseRecursive method to TagTestModule and NestedTag
+- added methods to TagTestModule to set a tag instance directly
+- added getExecutedSQLStatementParameterSets method to JDBCTestModule
+- added JDBC MockStruct implementation
+- added Java2HTML version of examples source code
+- updated all jar files in the Struts release to the versions of Struts 1.2.1
+- replaced commons-lang.jar with commons-lang-2.0.jar (no longer included in Struts 1.2.1)
+- updated nekohtml.jar from 0.9.2 to 0.9.3
+
+mockrunner-0.2.9:
+
+- fixed bugs 951972 and 951963
+- fixed bug (NullPointerException) when a null JMS correlation ID is set
+- JMS test framework now supports message selectors (using a modified version
+  of ActiveMQ selector parser, see http://activemq.codehaus.org/)
+- added NewsSubscriber example test to demonstrate message selectors
+- changed the default JMS delivery mode to PERSISTENT
+- it's now possible to clone JMS messages before sending (default is not cloning)
+- it's now possible to verify multiple parameter sets of one PreparedStatement,
+  please check out the modified BankTest example
+- fixed problem with MockStatement.getMoreResults(), now returns true, if there
+  is a ResultSet
+- added excluded.properties to fix classloader problem with JUnit and commons-logging.jar
+- added verifyForwardName() to ActionTestModule
+- fixed problem with ActionTestModule.createDynaActionForm(), now returns
+  DynaActionForm instance
+- fixed bug in MockHttpSession.setAttribute() and MockHttpSession.removeAttribute(),
+  HttpSessionBindingListener methods will now be called properly
+- added support for HttpSessionAttributeListener and ServletContextAttributeListener
+- added Servlet 2.4 methods to MockHttpServletRequest and MockHttpServletResponse
+- fixed some problems with MockPageContext
+- removed deprecated verifyComited and verifyNotComited methods in JDBCTestModule
+- reorganized package structure for tests
+- mockrunner jars are now compiled with debug information (line numbers)
+- updated jdom.jar from Beta 9 to Beta 10
+
+mockrunner-0.2.8:
+
+- fixed bug 949026
+- upgraded JMS test framework to JMS 1.1 (JMS 1.0.2 is still supported)
+  Note: The provided jboss-j2ee.jar contains the interfaces for JMS 1.0.2 (J2EE 1.3)
+- added doHead() to ServletTestModule
+- added some missing methods to test adapters
+- applied patch (by Steven Blundy), MockResultSet.isBeforeFirst() now returns 
+  false, if the ResultSet is empty. MockResultSet.isLast() also returns false
+  in case of an empty ResultSet
+- added MockEJBs MockContextFactory.revertSetAsInitial() to BaseTestCase.tearDown()
+  for a proper cleanup
+- removed examples from JavaDoc
+- updated jboss-j2ee.jar from 3.2.2 to 3.2.3
+- updated nekohtml.jar from 0.9 to 0.9.2
+- namespace processing is fixed in NekoHTML 0.9.2
+
+mockrunner-0.2.7:
+
+- applied patch 910699 (MockUserPrincipal by Lance Lavandowska)
+- added getters for request and response object to MockRequestDispatcher
+- removed most of the methods in MockActionMapping, we can use the
+  real Strust implementation
+- improved setResources() to Struts test module to support module config
+- added createValidatorResources() and setValidatorResources() to
+  Struts test module for validator support
+- changed GreetingsActionTest to also demonstrate the new validation feature
+- added example test for LookupDispatchAction
+- added createDynaActionForm() method to Struts test module
+- fixed problem with restoreDrivers() method of JDBCMockObjectFactory 
+  (now clears the list of preserved drivers after restoring them)
+- fixed bug in JDBCMockObjectFactory for JDK 1.3 in preserveDrivers()
+  (now clears the list of preserved drivers after restoring them)
+- added registerMockDriver() to JDBCMockObjectFactory
+- added OrderDB example to demonstrate the test of stored procedures
+- added commons-validator.jar and jakarta-oro.jar third party libraries
+- disabled namespace processing of NekoHTML parser, because of
+  problems with NekoHTML 0.9
+- updated nekohtml.jar from 0.8.3 to 0.9
+- updated servlet.jar from Tomcat 4.1.29 to 4.1.30
+
+mockrunner-0.2.6:
+
+- removed XMLUtil.parse(org.w3c.dom.ls.DOMParser parser, DOMInput data) method
+  (because of incompatibility with Xerces 2.6.1).
+- fixed problem with date parsing in ServletRequest and ServletResponse.
+- added MapMessageResources to Struts test framework in order
+  to support messages resources.
+- added MockModuleConfig and MockActionServlet, used by some
+  of the Struts getResources methods.
+- added commons-digester.jar third party library
+- added setResources() and setDataSource() methods to Struts test framework
+- added GreetingsActionTest example to demonstrate the new resources capability
+
+mockrunner-0.2.5:
+
+- first version of the JMS test framework
+- added methods to EJBTestModule to deploy message driven beans
+- all TestCaseAdapter methods are protected now
+- added clearOutput and setCaseSensitive methods to ServletTestModule
+- added setCaseSensitive method to ServletTestModule and TagTestModule
+- added JDBC Driver preserve mechanism to JDBCMockObjectFactory
+- synchronized MockServletContext, MockServletConfig and MockHttpSession
+  to make them thread safe. Note, that the other mock objects are
+  not thread safe at the moment.
+- updated nekohtml.jar from 0.8.2 to 0.8.3
+- updated servlet.jar from Tomcat 4.1.27 to 4.1.29
+
+mockrunner-0.2.1:
+
+- fixed bugs 823527, 835062 and 836259
+- removed deprecated methods and classes.
+- removed dependencies from www.mockobjects.com mock objects,
+  the mockobjects jars are no longer necessary.
+- introduced EJBMockObjectFactory which performs all
+  the MockUserTransaction handling. Removed the getMockUserTransaction
+  method from JDBCMockObjectFactory. MockUserTransaction is in
+  com.mockrunner.mock.ejb package now.
+- introduced EJBTestModule that utilizes MockEJB 0.5
+- updated mockejb.jar from 0.4 to 0.5
+- updated jboss-j2ee.jar from JBoss 3.2.2 rc2 to JBoss 3.2.2 final
+- updated nekohtml.jar from 0.8.1 to 0.8.2
+
+mockrunner-0.2:
+
+- reorganized package structure for mockobjects. The
+  mockobjects of mockrunner-0.1.5 are in com.mockrunner.mock.web
+  package now. Please adapt your imports.
+- renamed MockObjectFactory to WebMockObjectFactory and moved
+  it to com.mockrunner.mock.web package, renamed the corresponding
+  createMockObjectFactory methods to createWebMockObjectFactory.
+  There's also a JDBCMockObjectFactory now in com.mockrunner.mock.jdbc
+  package and corresponding createJDBCMockObjectFactory methods.
+  The old MockObjectFactory is deprecated and will be removed in
+  the next release.
+- first version of the JDBC test framework.
+- added mockejb.jar in order to test EJBs in conjunction with
+  the test modules of Mockrunner. Have a look at 
+  http://mockejb.sourceforge.net.
+- added methods to WebMockObjectFactory in order to specify
+  custom request wrappers. This makes it possible to
+  use filters in conjunction with Struts actions
+  (among other things)
+- added addRequestParameter() methods to ServletTestModule and
+  ServletTestCaseAdapter
+- replaced JDK 1.3 mockobjects with JDK 1.4 version
+- Mockrunner provides two jar files for JDK 1.3 and JDK 1.4
+  from now on because of JDBC incompatibility.
+- removed example and test packages from mockrunner jars
+- added some jars from Jakarta Commons
+- added jboss-j2ee.jar
+- updated nekohtml.jar from 0.7.7 to 0.8.1
+- updated servlet.jar from Tomcat 4.1.18 to 4.1.27
+- added struts.jar from Struts 1.1 to third party jars. You have to 
+  include this in the classpath even if you only use the test modules 
+  that are not Struts related (e.g ServletTestModule or JDBCTestModule)
+
+mockrunner-0.1.5:
+
+- reorganized package structure. ActionTestModule and
+  ActionTestCaseAdapter are in com.mockrunner.struts
+  package now. The tag stuff is in the com.mockrunner.tag
+  package. Please adapt your imports.
+- improved the TagTestModule. It supports nested tag and
+  is able to perform the tag lifecycle as in the real
+  container.
+- added ServletTestModule with servlet and filter support
+- implemented parsing of HTML output
+- added some useful methods to ActionTestModule
+- added third party jars to release (except for the big
+  Xerces and Struts jars)
+
+mockrunner-0.1:
+
+- Inital release (includes examples and JavaDoc)
+- Supports Struts 1.1.0 and Servlet API 2.3
