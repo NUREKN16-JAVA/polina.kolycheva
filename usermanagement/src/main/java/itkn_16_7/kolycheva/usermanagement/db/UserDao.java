@@ -26,6 +26,7 @@ public interface UserDao {
 	 */
 	void update (User user) throws DatabaseException;
 	 void delete (User user) throws DatabaseException;
+	 Collection<User> find(String firstName, String lastName) throws DatabaseException;
 	 void setConnectionFactory(ConnectionFactory connectionFactory);
 }
 

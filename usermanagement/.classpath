@@ -35,5 +35,16 @@
 	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/lib/lib/xml-apis-2.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/jstl-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/standard-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/http.jar"/>
+	<classpathentry kind="lib" path="lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/iiop.jar"/>
+	<classpathentry kind="lib" path="lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/jade.jar"/>
+	<classpathentry kind="lib" path="lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/jadeTools.jar"/>
+	<classpathentry kind="lib" path="lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/commons-codec/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/JADE-all-3.4/JADE-src-3.4/jade/lib/commons-codec/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/http.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/iiop.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/jade.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/jadeTools.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/Java/usermanagement/lib/JADE-all-3.4/JADE-bin-3.4/jade/lib/commons-codec/commons-codec-1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
